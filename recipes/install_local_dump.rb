@@ -1,7 +1,9 @@
 #
-# Author:: Andrew Coulton(<andrew@ingenerator.com>)
+# Installs postfix configured to send mail to a local dump file
+#
+# Author::  Andrew Coulton (<andrew@ingenerator.com>)
 # Cookbook Name:: postfix-relay
-# Attribute:: default
+# Recipe:: install_local_dump
 #
 # Copyright 2013-14, inGenerator Ltd
 #
@@ -18,11 +20,11 @@
 # limitations under the License.
 #
 
-# Regular expression patterns (and replacements) to use to alter outgoing email sender addresses
-default['postfix_relay']['outbound_address_replacements'] = node['postfix_relay']['outbound_address_replacements'] || {}
+node.default['postfix']['main']['default_transport']   = 'fs_mail'
+node.default['postfix']['main']['relayhost']           = 'localhost'
+node.default['postfix']['sasl']['smtp_sasl_passwd']    = 'localhost'
+node.default['postfix']['sasl']['smtp_sasl_user_name'] = 'localhost'
+node.default['postfix']['master_template_source']      = 'postfix-relay'
+node.default['postfix_relay']['fs_mail']['active']     = true
 
-
-# Configuration for the mail dump. The transport will be included in postfix configuration if active is true
-default['postfix_relay']['fs_mail']['active'] = false
-default['postfix_relay']['fs_mail']['user']   = "ubuntu"
-default['postfix_relay']['fs_mail']['file']   = "/tmp/outgoing_mail.dump"
+include_recipe "postfix::default"
