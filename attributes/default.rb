@@ -18,9 +18,18 @@
 # limitations under the License.
 #
 
+# Domain to send email from if no domain is specified
+default['postfix_relay']['email_domain'] = nil
+
+# Template to create forwarding addresses for local users
+default['postfix_relay']['local_user_alias'] = nil
+
+
 # Regular expression patterns (and replacements) to use to alter outgoing email sender addresses
 default['postfix_relay']['outbound_address_replacements'] = node['postfix_relay']['outbound_address_replacements'] || {}
 
+# By default, do not allow live email
+default['postfix_relay']['allow_live_email']  = false
 
 # Configuration for the mail dump. The transport will be included in postfix configuration if active is true
 default['postfix_relay']['fs_mail']['active'] = false
