@@ -24,7 +24,8 @@ default['postfix']['main']['smtp_sasl_auth_enable']        = 'yes'
 default['postfix']['main']['smtp_use_tls']                 = 'yes'
 default['postfix']['main']['smtp_tls_security_level']      = 'encrypt'
 default['postfix']['main']['smtp_tls_note_starttls_offer'] = 'yes'
-default['postfix']['main']['smtp_tls_cafile']              = '/etc/ssl/certs/ca-certificates.crt'
+default['postfix']['main']['smtp_tls_CAfile']              = '/etc/ssl/certs/ca-certificates.crt'
+default['postfix']['main']['smtp_sasl_password_maps']      = "hash:#{node['postfix']['conf_dir']}/postfix/sasl_passwd"
 default['postfix']['main']['smtp_sasl_security_options']   = 'noanonymous'
 default['postfix']['main']['smtp_sasl_mechanism_filter']   = 'login'
 
