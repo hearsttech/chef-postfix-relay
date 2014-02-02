@@ -13,7 +13,7 @@ describe 'postfix-relay::default' do
     chef_run.should create_directory("/etc/postfix").with({
       :owner  => "root",
       :group  => "root",
-      :mode   => 0644
+      :mode   => 0755
     })
   end 
   

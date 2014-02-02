@@ -24,7 +24,7 @@
 directory "/etc/postfix" do
   owner  "root"
   group  "root"
-  mode   0644
+  mode   0755
 end
 
 include_recipe "postfix-relay::alias_local_users"
