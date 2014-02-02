@@ -22,8 +22,8 @@
 
 # Set postfix access credentials
 node.default['postfix']['main']['relayhost']           = node['postfix_relay']['live_email']['relayhost']
-node.default['postfix']['sasl']['smtp_sasl_passwd']    = node['postfix_relay']['live_email']['smtp_sasl_user_name']
-node.default['postfix']['sasl']['smtp_sasl_user_name'] = node['postfix_relay']['live_email']['smtp_sasl_passwd']
+node.default['postfix']['sasl']['smtp_sasl_passwd']    = node['postfix_relay']['live_email']['smtp_sasl_passwd']
+node.default['postfix']['sasl']['smtp_sasl_user_name'] = node['postfix_relay']['live_email']['smtp_sasl_user_name']
 
 # Ensure that outgoing mail without a domain (eg from local users) is in the correct domain
 node.default['postfix']['main']['myhostname']          = node['postfix_relay']['email_domain']

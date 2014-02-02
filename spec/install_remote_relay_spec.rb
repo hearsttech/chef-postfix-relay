@@ -36,8 +36,8 @@ describe 'postfix-relay::install_remote_relay' do
 
   it "sets the postfix relay configuration to use the configured remote host with credentials" do
     expect(chef_run.node['postfix']['main']['relayhost']).to eq('smtp.mydomain.com')
-    expect(chef_run.node['postfix']['sasl']['smtp_sasl_passwd']).to eq('me@mydomain.com')
-    expect(chef_run.node['postfix']['sasl']['smtp_sasl_user_name']).to eq('password')
+    expect(chef_run.node['postfix']['sasl']['smtp_sasl_user_name']).to eq('me@mydomain.com')
+    expect(chef_run.node['postfix']['sasl']['smtp_sasl_passwd']).to eq('password')
   end
 
 end
