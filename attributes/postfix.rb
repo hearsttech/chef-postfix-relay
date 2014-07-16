@@ -30,5 +30,6 @@ default['postfix']['main']['smtp_sasl_password_maps']      = "hash:#{node['postf
 default['postfix']['main']['smtp_sasl_security_options']   = 'noanonymous'
 default['postfix']['main']['smtp_sasl_mechanism_filter']   = 'login'
 
- 
-  
+
+# Temporary fix for https://github.com/opscode-cookbooks/postfix/issues/69
+default['postfix']['main']['transport_maps'] = nil
