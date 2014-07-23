@@ -34,7 +34,7 @@ default['postfix_relay']['allow_live_email']  = false
 # Configuration for the mail dump. The transport will be included in postfix configuration if active is true
 default['postfix_relay']['fs_mail']['active'] = false
 default['postfix_relay']['fs_mail']['file']   = "/tmp/outgoing_mail.dump"
-if node['etc']['passwd']['vagrant']
+if (node['etc'] && node['etc']['passwd'] && node['etc']['passwd']['vagrant'])
   default['postfix_relay']['fs_mail']['user']   = 'vagrant'
 else
   default['postfix_relay']['fs_mail']['user']   = 'ubuntu'
