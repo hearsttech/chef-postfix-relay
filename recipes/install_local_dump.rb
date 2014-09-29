@@ -20,11 +20,11 @@
 # limitations under the License.
 #
 
-node.default['postfix']['main']['default_transport']   = 'fs_mail'
-node.default['postfix']['main']['relayhost']           = 'localhost'
-node.default['postfix']['sasl']['smtp_sasl_passwd']    = 'localhost'
-node.default['postfix']['sasl']['smtp_sasl_user_name'] = 'localhost'
-node.default['postfix']['master_template_source']      = 'postfix-relay'
-node.default['postfix_relay']['fs_mail']['active']     = true
+node.normal['postfix']['main']['default_transport']   = 'fs_mail'
+node.normal['postfix']['main']['relayhost']           = 'localhost'
+node.normal['postfix']['sasl']['smtp_sasl_passwd']    = 'localhost'
+node.normal['postfix']['sasl']['smtp_sasl_user_name'] = 'localhost'
+node.normal['postfix']['master_template_source']      = 'postfix-relay'
+node.normal['postfix_relay']['fs_mail']['active']     = true
 
 include_recipe "postfix::default"
