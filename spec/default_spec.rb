@@ -28,5 +28,9 @@ describe 'postfix-relay::default' do
   it "installs postfix as a dump or relay" do
     chef_run.should include_recipe "postfix-relay::install_postfix"
   end
+  
+  it "configures postfix to only listen on the loopback interface" do
+    expect(chef_run.node['postfix']['main']['inet_interfaces']).to eq('loopback-only')
+  end
 
 end

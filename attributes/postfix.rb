@@ -19,16 +19,16 @@
 #
 
 # Override the default configuration from the postfix cookbook to match our standard use
-default['postfix']['main']['inet_interfaces']              = 'loopback-only'
-default['postfix']['main']['smtp_sasl_auth_enable']        = 'yes'
-default['postfix']['main']['smtp_use_tls']                 = 'yes'
-default['postfix']['main']['smtp_tls_security_level']      = 'encrypt'
-default['postfix']['main']['smtp_tls_note_starttls_offer'] = 'yes'
-default['postfix']['main']['smtp_tls_CAfile']              = '/etc/ssl/certs/ca-certificates.crt'
-default['postfix']['sasl_password_file']                   = "#{node['postfix']['conf_dir']}/sasl_passwd"
-default['postfix']['main']['smtp_sasl_password_maps']      = "hash:#{node['postfix']['sasl_password_file']}"
-default['postfix']['main']['smtp_sasl_security_options']   = 'noanonymous'
-default['postfix']['main']['smtp_sasl_mechanism_filter']   = 'login'
+normal['postfix']['main']['inet_interfaces']              = 'loopback-only'
+normal['postfix']['main']['smtp_sasl_auth_enable']        = 'yes'
+normal['postfix']['main']['smtp_use_tls']                 = 'yes'
+normal['postfix']['main']['smtp_tls_security_level']      = 'encrypt'
+normal['postfix']['main']['smtp_tls_note_starttls_offer'] = 'yes'
+normal['postfix']['main']['smtp_tls_CAfile']              = '/etc/ssl/certs/ca-certificates.crt'
+normal['postfix']['sasl_password_file']                   = "#{node['postfix']['conf_dir']}/sasl_passwd"
+normal['postfix']['main']['smtp_sasl_password_maps']      = "hash:#{node['postfix']['sasl_password_file']}"
+normal['postfix']['main']['smtp_sasl_security_options']   = 'noanonymous'
+normal['postfix']['main']['smtp_sasl_mechanism_filter']   = 'login'
 
 
 # Temporary fix for https://github.com/opscode-cookbooks/postfix/issues/69
