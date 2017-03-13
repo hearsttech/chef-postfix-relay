@@ -1,6 +1,6 @@
-inGenerator Backup cookbook
-=================================
-[![Build Status](https://travis-ci.org/ingenerator/chef-postfix-relay.png?branch=master)](https://travis-ci.org/ingenerator/chef-postfix-relay)
+inGenerator postfix-relay cookbook
+==================================
+[![Build Status](https://travis-ci.org/ingenerator/chef-postfix-relay.png?branch=0.3.x)](https://travis-ci.org/ingenerator/chef-postfix-relay)
 
 `postfix-relay` installs and configures [postfix](http://www.postfix.org/) as a local mail relay server.
 It supports four key goals:
@@ -42,8 +42,8 @@ runs in production conditions, with only the very final postfix relay switched f
 
 Requirements
 ------------
-- Chef 11 or higher
-- **Ruby 1.9.3 or higher**
+- Chef 12 or higher
+- **Ruby 2.3 or higher**
 
 Installation
 ------------

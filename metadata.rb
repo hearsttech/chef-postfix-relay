@@ -5,6 +5,8 @@ license 'Apache 2.0'
 description 'Installs postfix as a local mail relay, optionally delivering all mail to local dump files (for dev/build servers)'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '0.2.0'
+issues_url 'https://github.com/ingenerator/chef-postfix-relay/issues'
+source_url 'https://github.com/ingenerator/chef-postfix-relay'
 
 %w(ubuntu).each do |os|
   supports os
