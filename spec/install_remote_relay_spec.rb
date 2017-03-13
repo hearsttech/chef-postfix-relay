@@ -13,24 +13,24 @@ describe 'postfix-relay::install_remote_relay' do
   end
 
   it "sets the postfix hostname to the email_domain" do
-    chef_run.should render_file('/etc/postfix/main.cf').with_content(
+    expect(chef_run).to render_file('/etc/postfix/main.cf').with_content(
       /^myhostname = mysite.com/m
     )
   end
   
   it "does not include the email_domain in the postfix mydestination config" do
     # Fauxhai is the hostname from Fauxhai
-    chef_run.should render_file('/etc/postfix/main.cf').with_content(
+    expect(chef_run).to render_file('/etc/postfix/main.cf').with_content(
       /^mydestination = Fauxhai, localhost.localdomain, localhost$/m
     )    
   end
 
   it "installs postfix with postfix::default" do
-    chef_run.should include_recipe("postfix::default")
+    expect(chef_run).to include_recipe("postfix::default")
   end
 
   it "does not include the fs_mail transport in master.cf" do
-    chef_run.should render_file('/etc/postfix/master.cf').with_content(
+    expect(chef_run).to render_file('/etc/postfix/master.cf').with_content(
       /^(?!.*fs_mail)/m
     )
   end

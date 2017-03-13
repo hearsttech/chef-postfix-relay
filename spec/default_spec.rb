@@ -10,7 +10,7 @@ describe 'postfix-relay::default' do
   end
   
   it "creates /etc/postfix in case it is required before the package is installed" do#
-    chef_run.should create_directory("/etc/postfix").with({
+    expect(chef_run).to create_directory("/etc/postfix").with({
       :owner  => "root",
       :group  => "root",
       :mode   => 0755
@@ -18,15 +18,15 @@ describe 'postfix-relay::default' do
   end 
   
   it "installs local user aliases" do
-    chef_run.should include_recipe "postfix-relay::alias_local_users"
+    expect(chef_run).to include_recipe "postfix-relay::alias_local_users"
   end
   
   it "installs sender aliases" do
-    chef_run.should include_recipe "postfix-relay::alias_senders"
+    expect(chef_run).to include_recipe "postfix-relay::alias_senders"
   end
   
   it "installs postfix as a dump or relay" do
-    chef_run.should include_recipe "postfix-relay::install_postfix"
+    expect(chef_run).to include_recipe "postfix-relay::install_postfix"
   end
   
   it "configures postfix to only listen on the loopback interface" do

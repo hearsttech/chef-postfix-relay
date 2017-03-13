@@ -21,7 +21,7 @@ describe 'postfix-relay::alias_local_users' do
     end
 
     it "does not create an /etc/postfix/virtual file" do
-      chef_run.should_not create_template('/etc/postfix/virtual')
+      expect(chef_run).not_to create_template('/etc/postfix/virtual')
     end
   end
 
@@ -33,7 +33,7 @@ describe 'postfix-relay::alias_local_users' do
     end
 
     it "creates an /etc/postfix/virtual file" do
-      chef_run.should create_template('/etc/postfix/virtual').with({
+      expect(chef_run).to create_template('/etc/postfix/virtual').with({
         :owner => "root",
         :group => "root",
         :mode  => 0644
@@ -41,7 +41,7 @@ describe 'postfix-relay::alias_local_users' do
     end
 
     it "runs postmap to update when the virtual alias file changes" do
-      chef_run.should_not run_execute('update_postfix_virtual_aliases').with({
+      expect(chef_run).not_to run_execute('update_postfix_virtual_aliases').with({
         :command => "postmap /etc/postfix/virtual",
         :user    => "root"
       })
@@ -56,7 +56,7 @@ describe 'postfix-relay::alias_local_users' do
       let (:local_user_alias) { 'alerts+:user@mycompany.com' }
 
       it "uses local_user_alias as a template to map each local user in /etc/postfix/virtual" do
-        chef_run.should render_file('/etc/postfix/virtual').with_content(
+        expect(chef_run).to render_file('/etc/postfix/virtual').with_content(
           /user1@mysite\.com\s+alerts\+user1@mycompany\.com$\s+user2@mysite.com\s+alerts\+user2@mycompany\.com$/m
         )
       end
@@ -66,7 +66,7 @@ describe 'postfix-relay::alias_local_users' do
       let (:local_user_alias) { 'alerts_from_servers@mycompany.com' }
 
       it "maps each local user to local_user_alias in /etc/postfix/virtual" do
-        chef_run.should render_file('/etc/postfix/virtual').with_content(
+        expect(chef_run).to render_file('/etc/postfix/virtual').with_content(
           /user1@mysite\.com\s+alerts_from_servers@mycompany\.com$\s+user2@mysite.com\s+alerts_from_servers@mycompany\.com$/m
         )
       end

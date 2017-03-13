@@ -16,19 +16,19 @@ describe 'postfix-relay::install_postfix' do
     let (:allow_live_email) { true }
     
     it "installs postfix as a remote relay" do
-      chef_run.should include_recipe("postfix-relay::install_remote_relay")
+      expect(chef_run).to include_recipe("postfix-relay::install_remote_relay")
     end
     
     it "does not install postfix as a local dump" do
-      chef_run.should_not include_recipe("postfix-relay::install_local_dump")
+      expect(chef_run).not_to include_recipe("postfix-relay::install_local_dump")
     end
     
     it "installs standard postfix aliases" do
-      chef_run.should include_recipe("postfix::aliases")
+      expect(chef_run).to include_recipe("postfix::aliases")
     end
     
     it "installs postfix authenticated smtp handling" do
-      chef_run.should include_recipe("postfix::sasl_auth")
+      expect(chef_run).to include_recipe("postfix::sasl_auth")
     end
   end
   
@@ -36,19 +36,19 @@ describe 'postfix-relay::install_postfix' do
     let (:allow_live_email) { false }
 
     it "installs postfix as a local dump" do
-      chef_run.should include_recipe("postfix-relay::install_local_dump")
+      expect(chef_run).to include_recipe("postfix-relay::install_local_dump")
     end
     
     it "does not install postfix as a remote relay" do
-      chef_run.should_not include_recipe("postfix-relay::install_remote_relay")
+      expect(chef_run).not_to include_recipe("postfix-relay::install_remote_relay")
     end
     
     it "installs standard postfix aliases" do
-      chef_run.should include_recipe("postfix::aliases")
+      expect(chef_run).to include_recipe("postfix::aliases")
     end
     
     it "installs postfix authenticated smtp handling" do
-      chef_run.should include_recipe("postfix::sasl_auth")
+      expect(chef_run).to include_recipe("postfix::sasl_auth")
     end
   end
 

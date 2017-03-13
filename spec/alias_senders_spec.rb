@@ -14,7 +14,7 @@ describe 'postfix-relay::alias_senders' do
     end
 
     it "does not create a sender_canonical file" do
-      chef_run.should_not create_template('/etc/postfix/sender_canonical')
+      expect(chef_run).not_to create_template('/etc/postfix/sender_canonical')
     end
   end
 
@@ -33,7 +33,7 @@ describe 'postfix-relay::alias_senders' do
     end
 
     it "creates the sender_canoninical_maps_file" do
-      chef_run.should create_template('/etc/postfix/sender_canonical_maps').with(
+      expect(chef_run).to create_template('/etc/postfix/sender_canonical_maps').with(
         :owner => "root",
         :group => "root",
         :mode  => 0644
@@ -41,13 +41,13 @@ describe 'postfix-relay::alias_senders' do
     end
 
     it "includes each configured regex replacement in the map" do
-      chef_run.should render_file('/etc/postfix/sender_canonical_maps').with_content(
+      expect(chef_run).to render_file('/etc/postfix/sender_canonical_maps').with_content(
         Regexp.new(Regexp.escape('/^chef-client@[^.]+.*$/')+'\s+'+Regexp.escape('chef.${1}@ingenerator.com'))
       )
     end
 
     it "does not include patterns where replacement is set to nil" do
-      chef_run.should render_file('/etc/postfix/sender_canonical_maps').with_content(
+      expect(chef_run).to render_file('/etc/postfix/sender_canonical_maps').with_content(
         /^(?!.*other-email)/m
       )
     end

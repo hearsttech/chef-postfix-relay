@@ -15,7 +15,7 @@ describe 'postfix-relay::install_local_dump' do
   end
   
   it "installs postfix with postfix::default" do
-    chef_run.should include_recipe("postfix::default")
+    expect(chef_run).to include_recipe("postfix::default")
   end
   
   it "triggers postfix::default to generate the custom master.cf" do
@@ -23,19 +23,19 @@ describe 'postfix-relay::install_local_dump' do
   end
   
   it "includes the fs_mail transport in master.cf" do
-    chef_run.should render_file('/etc/postfix/master.cf').with_content(
+    expect(chef_run).to render_file('/etc/postfix/master.cf').with_content(
       /^fs_mail\s+unix\s+-\s+n\s+n\s+-\s+-\s+pipe$\s+flags=FB/m
     )
   end
   
   it "sets the fs_mail dump file to the configured location" do
-    chef_run.should render_file('/etc/postfix/master.cf').with_content(
+    expect(chef_run).to render_file('/etc/postfix/master.cf').with_content(
       /^fs_mail.+?$\s+.+?argv=tee -a \/tmp\/my_custom_dump/
     )    
   end
   
   it "sets the fs_mail user to the configured user" do
-    chef_run.should render_file('/etc/postfix/master.cf').with_content(
+    expect(chef_run).to render_file('/etc/postfix/master.cf').with_content(
       /^fs_mail.+?$\s+.+?user=myuser /
     )    
   end
