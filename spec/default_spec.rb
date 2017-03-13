@@ -3,9 +3,9 @@ require 'spec_helper'
 describe 'postfix-relay::default' do
 
   let (:chef_run) do
-    ChefSpec::Runner.new do | node |
-      node.set['postfix_relay']['email_domain']     = 'mysite.com'
-      node.set['postfix_relay']['allow_live_email']                  = false
+    ChefSpec::SoloRunner.new do | node |
+      node.normal['postfix_relay']['email_domain']     = 'mysite.com'
+      node.normal['postfix_relay']['allow_live_email']                  = false
     end.converge(described_recipe)
   end
   

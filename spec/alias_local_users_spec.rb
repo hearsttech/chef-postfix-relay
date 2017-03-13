@@ -3,10 +3,10 @@ require 'spec_helper'
 describe 'postfix-relay::alias_local_users' do
 
   let (:chef_run) do
-    ChefSpec::Runner.new do | node |
-      node.set['postfix_relay']['local_user_alias'] = local_user_alias
-      node.set['postfix_relay']['email_domain']     = 'mysite.com'
-      node.set['etc']['passwd'] = {
+    ChefSpec::SoloRunner.new do | node |
+      node.normal['postfix_relay']['local_user_alias'] = local_user_alias
+      node.normal['postfix_relay']['email_domain']     = 'mysite.com'
+      node.normal['etc']['passwd'] = {
         'user1' => {},
         'user2' => {},
       }

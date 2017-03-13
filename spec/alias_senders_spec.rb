@@ -4,8 +4,8 @@ describe 'postfix-relay::alias_senders' do
 
   context "with no outbound_address_replacements configured" do
     let (:chef_run) do
-      ChefSpec::Runner.new do | node |
-        node.set['postfix_relay']['outbound_address_replacements'] = {}
+      ChefSpec::SoloRunner.new do | node |
+        node.normal['postfix_relay']['outbound_address_replacements'] = {}
       end.converge(described_recipe)
     end
 
@@ -20,8 +20,8 @@ describe 'postfix-relay::alias_senders' do
 
   context "with outbound_address_replacements configured" do
     let (:chef_run) do
-      ChefSpec::Runner.new do | node |
-        node.set['postfix_relay']['outbound_address_replacements'] = {
+      ChefSpec::SoloRunner.new do | node |
+        node.normal['postfix_relay']['outbound_address_replacements'] = {
           '/^chef-client@[^.]+.*$/' => 'chef.${1}@ingenerator.com',
           '/^other-email$/'         => nil,
         }

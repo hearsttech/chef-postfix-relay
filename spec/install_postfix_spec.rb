@@ -3,12 +3,12 @@ require 'spec_helper'
 describe 'postfix-relay::install_postfix' do
 
   let (:chef_run) do
-    ChefSpec::Runner.new do | node |
-      node.set['postfix_relay']['email_domain']     = 'mysite.com'
-      node.set['postfix_relay']['live_email']['relayhost']           = 'smtp.mydomain.com'
-      node.set['postfix_relay']['live_email']['smtp_sasl_user_name'] = 'me@mydomain.com'
-      node.set['postfix_relay']['live_email']['smtp_sasl_passwd']    = 'password'
-      node.set['postfix_relay']['allow_live_email']                  = allow_live_email
+    ChefSpec::SoloRunner.new do | node |
+      node.normal['postfix_relay']['email_domain']     = 'mysite.com'
+      node.normal['postfix_relay']['live_email']['relayhost']           = 'smtp.mydomain.com'
+      node.normal['postfix_relay']['live_email']['smtp_sasl_user_name'] = 'me@mydomain.com'
+      node.normal['postfix_relay']['live_email']['smtp_sasl_passwd']    = 'password'
+      node.normal['postfix_relay']['allow_live_email']                  = allow_live_email
     end.converge(described_recipe)
   end
   
