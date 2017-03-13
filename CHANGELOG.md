@@ -1,5 +1,7 @@
 ### Unreleased
 
+### 0.3.0
+
 * Update to postfix cookbook v5.0
 * Require Chef 12+
 
