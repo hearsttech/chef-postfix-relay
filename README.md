@@ -50,7 +50,7 @@ Installation
 We recommend adding to your `Berksfile` and using [Berkshelf](http://berkshelf.com/):
 
 ```ruby
-cookbook 'postfix-relay', git: 'git://github.com/ingenerator/postfix-relay', branch: 'master'
+cookbook 'postfix-relay', git: 'git://github.com/ingenerator/postfix-relay', branch: '0.3.x'
 ```
 
 Have your main project cookbook *depend* on postfix-relay by editing the `metadata.rb` for your cookbook. 
