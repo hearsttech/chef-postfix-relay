@@ -1,5 +1,8 @@
 ### Unreleased
 
+* Ignore build-time files from the vendored cookbook
+* Update build dependencies and build against Chef 12 and Chef 13
+
 ### 0.3.0
 
 * Update to postfix cookbook v5.0
