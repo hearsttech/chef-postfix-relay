@@ -2,15 +2,20 @@ require 'spec_helper'
 
 describe 'postfix-relay::install_remote_relay' do
   let (:conf_dir) { '/etc/postfix' }
-  let (:chef_run) do
+  let (:postfix_sasl_attrs) { {} }
+  let (:chef_runner) do
     ChefSpec::SoloRunner.new do | node |
       node.normal['postfix_relay']['email_domain']                      = 'mysite.com'
       node.normal['postfix_relay']['live_email']['relayhost']           = 'smtp.mydomain.com'
       node.normal['postfix_relay']['live_email']['smtp_sasl_user_name'] = 'me@mydomain.com'
       node.normal['postfix_relay']['live_email']['smtp_sasl_passwd']    = 'password'
       node.normal['postfix']['conf_dir']                                = conf_dir
-    end.converge(described_recipe)
+      postfix_sasl_attrs.each do | attr_name, attr_val |
+        node.normal['postfix']['sasl'][attr_name] = attr_val
+      end
+    end
   end
+  let (:chef_run)          { chef_runner.converge(described_recipe) }
 
   it "sets the postfix hostname to the email_domain" do
     expect(chef_run).to render_file('/etc/postfix/main.cf').with_content(
@@ -37,8 +42,8 @@ describe 'postfix-relay::install_remote_relay' do
 
   it "sets the postfix relay configuration to use the configured remote host with credentials" do
     expect(chef_run.node['postfix']['main']['relayhost']).to eq('smtp.mydomain.com')
-    expect(chef_run.node['postfix']['sasl']['smtp_sasl_user_name']).to eq('me@mydomain.com')
-    expect(chef_run.node['postfix']['sasl']['smtp_sasl_passwd']).to eq('password')
+    expect(chef_run.node['postfix']['sasl']['smtp.mydomain.com']['smtp_sasl_user_name']).to eq('me@mydomain.com')
+    expect(chef_run.node['postfix']['sasl']['smtp.mydomain.com']['smtp_sasl_passwd']).to eq('password')
   end
   
   it "defaults to using postfix-relay TLS configuration for postfix attributes" do
@@ -53,6 +58,22 @@ describe 'postfix-relay::install_remote_relay' do
     expect(chef_run.node['postfix']['main']['smtp_sasl_password_maps']).to eq("hash:#{conf_dir}/sasl_passwd")
     expect(chef_run.node['postfix']['main']['smtp_sasl_security_options']).to eq('noanonymous')
     expect(chef_run.node['postfix']['main']['smtp_sasl_mechanism_filter']).to eq('login')
+  end
+
+  context 'with invalid legacy stmp_sasl_passwd defined' do
+    let (:postfix_sasl_attrs) { {'smtp_sasl_passwd' => 'anything'} }
+
+    it 'throws an exception' do
+      expect { chef_run }.to raise_exception(ArgumentError, /smtp_sasl_passwd/)
+    end
+  end
+
+  context 'with invalid legacy stmp_sasl_user defined' do
+    let (:postfix_sasl_attrs) { {'smtp_sasl_user_name' => 'anything'} }
+
+    it 'throws an exception' do
+      expect { chef_run }.to raise_exception(ArgumentError, /smtp_sasl_user_name/)
+    end
   end
 
 end

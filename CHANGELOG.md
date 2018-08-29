@@ -1,5 +1,9 @@
 ### Unreleased
 
+* Require postfix > 5.3 and implement fix for the breaking change to their sasl_auth config attributes
+  in that version : throws exception if still defined and non-empty in your project (see 
+  chef-cookbooks/postfix#134). Fix spotted by @PeterGrace.
+
 ## 0.4.0 (2017-08-10)
 * Ignore build-time files from the vendored cookbook
 * Update build dependencies and build against Chef 12 and Chef 13 (drops support for < 12.18.31)

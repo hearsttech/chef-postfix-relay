@@ -13,4 +13,4 @@ source_url 'https://github.com/ingenerator/chef-postfix-relay'
   supports os
 end
 
-depends "postfix", "~>5.0"
+depends "postfix", "~>5.3"
