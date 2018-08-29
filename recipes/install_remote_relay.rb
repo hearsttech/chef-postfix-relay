@@ -20,11 +20,19 @@
 # limitations under the License.
 #
 
+%w(smtp_sasl_user_name smtp_sasl_passwd).each do | legacy_attr |
+  if node['postfix']['sasl'] && node['postfix']['sasl'][legacy_attr]
+    raise ArgumentError.new(
+      "Unexpected value for node.postfix.sasl.#{legacy_attr} : this syntax is no longer supported by the postfix cookbook"
+    )
+  end
+end
 
 # Set postfix access credentials
-node.normal['postfix']['main']['relayhost']           = node['postfix_relay']['live_email']['relayhost']
-node.normal['postfix']['sasl']['smtp_sasl_passwd']    = node['postfix_relay']['live_email']['smtp_sasl_passwd']
-node.normal['postfix']['sasl']['smtp_sasl_user_name'] = node['postfix_relay']['live_email']['smtp_sasl_user_name']
+relayhost = node['postfix_relay']['live_email']['relayhost']
+node.normal['postfix']['main']['relayhost']           = relayhost
+node.normal['postfix']['sasl'][relayhost]['smtp_sasl_passwd']    = node['postfix_relay']['live_email']['smtp_sasl_passwd']
+node.normal['postfix']['sasl'][relayhost]['smtp_sasl_user_name'] = node['postfix_relay']['live_email']['smtp_sasl_user_name']
 
 # Ensure that outgoing mail without a domain (eg from local users) is in the correct domain
 node.normal['postfix']['main']['myhostname']          = node['postfix_relay']['email_domain']
