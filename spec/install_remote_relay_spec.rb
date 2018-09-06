@@ -63,17 +63,19 @@ describe 'postfix-relay::install_remote_relay' do
   context 'with invalid legacy stmp_sasl_passwd defined' do
     let (:postfix_sasl_attrs) { {'smtp_sasl_passwd' => 'anything'} }
 
-    it 'throws an exception' do
-      expect { chef_run }.to raise_exception(ArgumentError, /smtp_sasl_passwd/)
+    it 'clears the attribute' do
+      # Can't verify the key doesn't exist because the postfix cookbook recreates it with an empty string value
+      expect(chef_run.node['postfix']['sasl']['smtp_sasl_passwd']).to eq('')
     end
   end
 
-  context 'with invalid legacy stmp_sasl_user defined' do
+  context 'with invalid legacy stmp_sasl_user_name defined' do
     let (:postfix_sasl_attrs) { {'smtp_sasl_user_name' => 'anything'} }
 
-    it 'throws an exception' do
-      expect { chef_run }.to raise_exception(ArgumentError, /smtp_sasl_user_name/)
+    it 'clears the attribute' do
+      expect(chef_run.node['postfix']['sasl']['smtp_sasl_user_name']).to eq('')
     end
+
   end
 
 end

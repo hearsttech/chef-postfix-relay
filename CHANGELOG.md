@@ -1,5 +1,9 @@
 ### Unreleased
 
+* Fix provisioning sasl_auth with the new attribute structure : attributes have been renamed as 
+  well as moved about. No longer throw if old-style attributes are set - these may be set in a 
+  persisted node object from a previous run : we just need to delete them.
+
 ## 0.4.1 (2018-08-29)
 * Require postfix > 5.3 and implement fix for the breaking change to their sasl_auth config attributes
   in that version : throws exception if still defined and non-empty in your project (see 
