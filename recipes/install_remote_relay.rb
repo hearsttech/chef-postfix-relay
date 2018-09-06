@@ -20,19 +20,19 @@
 # limitations under the License.
 #
 
-%w(smtp_sasl_user_name smtp_sasl_passwd).each do | legacy_attr |
-  if node['postfix']['sasl'] && node['postfix']['sasl'][legacy_attr]
-    raise ArgumentError.new(
-      "Unexpected value for node.postfix.sasl.#{legacy_attr} : this syntax is no longer supported by the postfix cookbook"
-    )
-  end
-end
-
+#
 # Set postfix access credentials
 relayhost = node['postfix_relay']['live_email']['relayhost']
 node.normal['postfix']['main']['relayhost']           = relayhost
-node.normal['postfix']['sasl'][relayhost]['smtp_sasl_passwd']    = node['postfix_relay']['live_email']['smtp_sasl_passwd']
-node.normal['postfix']['sasl'][relayhost]['smtp_sasl_user_name'] = node['postfix_relay']['live_email']['smtp_sasl_user_name']
+node.normal['postfix']['sasl'][relayhost]['password'] = node['postfix_relay']['live_email']['smtp_sasl_passwd']
+node.normal['postfix']['sasl'][relayhost]['username'] = node['postfix_relay']['live_email']['smtp_sasl_user_name']
+
+# Remove legacy postfix auth attributes, if any, to prevent them appearing in the rendered template
+# NB this doesn't actually remove the attributes yet because the postfix cookbook is still (brokenly)
+# creating them as empty values.
+# See https://github.com/chef-cookbooks/postfix/issues/148
+node.rm('postfix', 'sasl', 'smtp_sasl_user_name')
+node.rm('postfix', 'sasl', 'smtp_sasl_passwd')
 
 # Ensure that outgoing mail without a domain (eg from local users) is in the correct domain
 node.normal['postfix']['main']['myhostname']          = node['postfix_relay']['email_domain']
