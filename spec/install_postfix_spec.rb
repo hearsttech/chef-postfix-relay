@@ -9,6 +9,7 @@ describe 'postfix-relay::install_postfix' do
       node.normal['postfix_relay']['live_email']['smtp_sasl_user_name'] = 'me@mydomain.com'
       node.normal['postfix_relay']['live_email']['smtp_sasl_passwd']    = 'password'
       node.normal['postfix_relay']['allow_live_email']                  = allow_live_email
+      node.normal['postfix']['use_alias_maps'] = true
     end.converge(described_recipe)
   end
   

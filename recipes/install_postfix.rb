@@ -25,6 +25,3 @@ if node['postfix_relay']['allow_live_email'] then
 else
   include_recipe "postfix-relay::install_local_dump"
 end
-
-include_recipe "postfix::sasl_auth"
-include_recipe "postfix::aliases"

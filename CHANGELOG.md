@@ -1,5 +1,8 @@
 ### Unreleased
 
+## 0.4.3 (2019-01-23)
+* Remove postfix install details, which are already handled by the included postfix::default inclusion
+
 ## 0.4.2 (2018-09-06)
 * Bump development-time gem versions
 * Fix provisioning sasl_auth with the new attribute structure : attributes have been renamed as 
